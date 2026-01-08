@@ -24,7 +24,6 @@ export const updateUser = async (id: string, data: Partial<NewUser>) => {
   if (!existingUser) {
     throw new Error(`User with id ${id} not found`);
   }
-
   const [user] = await db
     .update(users)
     .set(data)
@@ -36,13 +35,9 @@ export const updateUser = async (id: string, data: Partial<NewUser>) => {
 // upsert => create or update
 
 export const upsertUser = async (data: NewUser) => {
-  // this is what we have done first
-  // const existingUser = await getUserById(data.id);
-  // if (existingUser) return updateUser(data.id, data);
-
-  // return createUser(data);
-
-  // and this is what CR suggested
+  /* const existingUser = await getUserById(data.id);
+  if (existingUser) return updateUser(data.id, data);
+  return createUser(data);*/
   const [user] = await db
     .insert(users)
     .values(data)
@@ -94,7 +89,6 @@ export const updateProduct = async (id: string, data: Partial<NewProduct>) => {
   if (!existingProduct) {
     throw new Error(`Product with id ${id} not found`);
   }
-
   const [product] = await db
     .update(products)
     .set(data)
@@ -127,7 +121,6 @@ export const deleteComment = async (id: string) => {
   if (!existingComment) {
     throw new Error(`Comment with id ${id} not found`);
   }
-
   const [comment] = await db
     .delete(comments)
     .where(eq(comments.id, id))
