@@ -1,4 +1,4 @@
-import { SignedIn, SignedOut, SignInButton, SignOutButton } from "@clerk/clerk-react";
+
 import Navbar from "./components/Navbar";
 import { Navigate, Route, Routes } from "react-router";
 import HomePage from "./pages/HomePage";
@@ -26,7 +26,9 @@ function App() {
           <Route path="/create" element={isSignedIn ? <CreatePage /> : <Navigate to={"/"} />} />
           <Route
             path="/edit/:id"
-            element={isSignedIn ? <EditProductPage /> : <Navigate to={"/"} />}
+            element={isSignedIn ? 
+            <EditProductPage /> : 
+            <Navigate to={"/"} />}
           />
         </Routes>
       </main>
