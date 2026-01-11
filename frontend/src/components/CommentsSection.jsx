@@ -3,6 +3,15 @@ import { useAuth, SignInButton } from "@clerk/clerk-react";
 import { useCreateComment, useDeleteComment } from "../hooks/useComments";
 import { SendIcon, Trash2Icon, MessageSquareIcon, LogInIcon } from "lucide-react";
 
+/**
+ * Render a comments UI for a product, including comment creation, listing, and owner-only deletion.
+ *
+ * @param {Object} props - Component props.
+ * @param {string} props.productId - ID of the product the comments belong to; used for create/delete mutations.
+ * @param {Array<Object>} [props.comments=[]] - List of comment objects to display; each comment is expected to include `id`, `content`, `createdAt`, `userId`, and an optional `user` object with `name` and `imageUrl`.
+ * @param {string} [props.currentUserId] - ID of the current user; when it matches a comment's `userId`, a delete control is shown for that comment.
+ * @returns {JSX.Element} The rendered comments section component.
+ */
 function CommentsSection({ productId, comments = [], currentUserId }) {
   const { isSignedIn } = useAuth();
   const [content, setContent] = useState("");

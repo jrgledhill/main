@@ -2,6 +2,18 @@ import { ArrowLeftIcon, ImageIcon, TypeIcon, FileTextIcon, SaveIcon } from "luci
 import { useState } from "react";
 import { Link } from "react-router";
 
+/**
+ * Render a form to edit a product with controlled fields for title, image URL, and description.
+ *
+ * The form maintains local state initialized from `product`, shows a live image preview for a valid `imageUrl`,
+ * displays an error alert when `isError` is true, and disables the submit button while `isPending` is true.
+ *
+ * @param {{ title: string, description: string, imageUrl: string }} product - Initial product values used to populate the form.
+ * @param {boolean} isPending - When true, the submit button is disabled and a loading spinner is shown.
+ * @param {boolean} isError - When true, an error alert with the message "Failed to update. Try again." is rendered.
+ * @param {(formData: { title: string, description: string, imageUrl: string }) => void} onSubmit - Called with the current form data when the form is submitted.
+ * @returns {JSX.Element} The rendered edit product form component.
+ */
 function EditProductForm({ product, isPending, isError, onSubmit }) {
   const [formData, setFormData] = useState({
     title: product.title,

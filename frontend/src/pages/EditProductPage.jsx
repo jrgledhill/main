@@ -4,6 +4,18 @@ import { useProduct, useUpdateProduct } from "../hooks/useProducts";
 import LoadingSpinner from "../components/LoadingSpinner";
 import EditProductForm from "../components/EditProductForm";
 
+/**
+ * Renders the product edit page for the authenticated owner of a product.
+ *
+ * Displays a loading spinner while the product is loading. If the product
+ * does not exist or the current user is not the product owner, shows a
+ * not-found or access-denied card with a link back home. If the product
+ * exists and the user is authorized, renders an EditProductForm and submits
+ * updates via the updateProduct mutation, navigating to the product detail
+ * page on success.
+ *
+ * @returns {JSX.Element} The page UI: loading spinner, access card, or edit form.
+ */
 function EditProductPage() {
   const { id } = useParams();
   const { userId } = useAuth();
