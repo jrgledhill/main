@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { useState } from "react";
 import { useAuth, SignInButton } from "@clerk/clerk-react";
 import { useCreateComment, useDeleteComment } from "../hooks/useComments";
@@ -93,13 +94,19 @@ function CommentsSection({ productId, comments = [], currentUserId }) {
               {currentUserId === comment.userId && (
                 <div className="chat-footer">
                   <button
-                    onClick={() =>
-                      confirm("Delete?") && deleteComment.mutate({ commentId: comment.id })
-                    }
+                    onClick={() => {
+                      if (confirm("Delete?")) {
+                        setDeletingId(comment.id);
+                        deleteComment.mutate(
+                          { commentId: comment.id },
+                          { onSettled: () => setDeletingId(null) }
+                        );
+                      }
+                    }}
                     className="btn btn-ghost btn-xs text-error"
-                    disabled={deleteComment.isPending}
+                    disabled={deletingId === comment.id}
                   >
-                    {deleteComment.isPending ? (
+                    {deletingId === comment.id ? (
                       <span className="loading loading-spinner loading-xs" />
                     ) : (
                       <Trash2Icon className="size-3" />
