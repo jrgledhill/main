@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+
 import { useState } from "react";
 import { useAuth, SignInButton } from "@clerk/clerk-react";
 import { useCreateComment, useDeleteComment } from "../hooks/useComments";
@@ -16,6 +16,7 @@ import { SendIcon, Trash2Icon, MessageSquareIcon, LogInIcon } from "lucide-react
 function CommentsSection({ productId, comments = [], currentUserId }) {
   const { isSignedIn } = useAuth();
   const [content, setContent] = useState("");
+  const [deletingId, setDeletingId] = useState(null);
   const createComment = useCreateComment();
   const deleteComment = useDeleteComment(productId);
 
